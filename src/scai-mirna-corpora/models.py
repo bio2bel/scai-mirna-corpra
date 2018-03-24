@@ -55,23 +55,6 @@ class Interaction(Base):
     e2_id = Column(Integer, ForeignKey('{}.id'.format(Entity2_TABLE_NAME)))
     e2 = relationship('Entity2')
 
-    def add_to_bel_graph(self, graph):
-        """Add this association to a BEL graph
-
-        :param pybel.BELGraph graph:
-        """
-        # TODO: Check how to deal with the namespaces
-        e1_node = mirna_dsl(name=self.e1.name)
-        disease_node = pathology_dsl(name=self.e2.name)
-
-        # TODO: Check how to deal with the relation
-        graph.add_qualified_edge(
-            e1_node,
-            disease_node,
-            relation=ASSOCIATION,
-            citation=str(self.pubmed),
-            evidence=str(self.sentence),
-        )
 
     def __repr__(self):
         return '{} and {} from {}'.format(self.e1, self.e2, self.pubmed, self.interaction, self.interaction_type)
