@@ -40,7 +40,7 @@ def download_scai_mirna_corpora(force_download=False):
     return TRAIN_DATA_FILE_PATH, TEST_DATA_FILE_PATH
 
 
-def get_scai_mirna_dfs(train_url=None, test_url=None, cache=True, force_download=False):
+def get_scai_mirna_dfs(url=None, cache=True, force_download=False):
     """Loads the pairs annotated in the training and test set
 
     1) PubMed ID
@@ -60,7 +60,7 @@ def get_scai_mirna_dfs(train_url=None, test_url=None, cache=True, force_download
     :param bool force_download: If true, overwrites a previously cached file
     :rtype: pandas.DataFrame
     """
-    if (train_url is None or test_url is None) and cache:
+    if url is None and cache:
         train_url, test_url = download_scai_mirna_corpora(force_download=force_download)
 
     # Create data frame for the training set
@@ -69,7 +69,9 @@ def get_scai_mirna_dfs(train_url=None, test_url=None, cache=True, force_download
     # Create data frame for the test set
     test_df = create_dataframe_of_pairs(url=test_url)
 
-    return training_df, test_df
+    merged_df = pd.concat([training_df, test_df])
+
+    return merged_df
 
 
 def create_dataframe_of_pairs(url):
