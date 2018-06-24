@@ -9,7 +9,7 @@ from sqlalchemy.orm import relationship
 from .constants import MODULE_NAME
 
 Entity1_TABLE_NAME = '{}_mirna'.format(MODULE_NAME)
-Entity2_TABLE_NAME = '{}_disease'.format(MODULE_NAME)
+Entity2_TABLE_NAME = '{}_disease_or_gene'.format(MODULE_NAME)
 INTERACTION_TABLE_NAME = '{}_association'.format(MODULE_NAME)
 
 Base = declarative_base()
@@ -29,7 +29,7 @@ class Entity1(Base):
 
 
 class Entity2(Base):
-    """This class represents the disease table"""
+    """This class represents the table cotaining diesases and genes associated with a miRNA"""
 
     __tablename__ = Entity2_TABLE_NAME
     id = Column(Integer, primary_key=True)
