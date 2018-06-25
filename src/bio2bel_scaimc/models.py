@@ -2,7 +2,7 @@
 
 from pybel.constants import ASSOCIATION
 from pybel.dsl import mirna as mirna_dsl, pathology as pathology_dsl
-from sqlalchemy import Column, ForeignKey, Integer, String
+from sqlalchemy import Column, ForeignKey, Integer, String, Text
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship
 
@@ -47,7 +47,7 @@ class Interaction(Base):
     __tablename__ = INTERACTION_TABLE_NAME
     id = Column(Integer, primary_key=True)
     pubmed = Column(String(32), nullable=False)
-    sentence = Column(String, doc='The sentence from which the pair is extracted')
+    sentence = Column(Text, doc='The sentence from which the pair is extracted')
     interaction = Column(String(20), doc='Describes the existence or absence of an interaction')
     interaction_type = Column(String(255), doc='Describes the type of the interaction')
     e1_id = Column(Integer, ForeignKey('{}.id'.format(Entity1_TABLE_NAME)))
