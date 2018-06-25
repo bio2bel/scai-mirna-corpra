@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
 
-from pybel.constants import ASSOCIATION
-from pybel.dsl import mirna as mirna_dsl, pathology as pathology_dsl
 from sqlalchemy import Column, ForeignKey, Integer, String, Text
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship
@@ -19,7 +17,9 @@ class Entity1(Base):
     """This class represents the miRNA table"""
 
     __tablename__ = Entity1_TABLE_NAME
+
     id = Column(Integer, primary_key=True)
+
     entity_term = Column(String(255), nullable=False, unique=True, index=True, doc='text mentioning of the entity')
     entity_type = Column(String(255), nullable=False, unique=True, index=True, doc='type of the entity')
     entity_offsets = Column(String(255), nullable=False, unique=True, index=True, doc='text spans of the entity')
@@ -32,7 +32,9 @@ class Entity2(Base):
     """This class represents the table cotaining diesases and genes associated with a miRNA"""
 
     __tablename__ = Entity2_TABLE_NAME
+
     id = Column(Integer, primary_key=True)
+
     entity_term = Column(String(255), nullable=False, unique=True, index=True, doc='text mentioning of the entity')
     entity_type = Column(String(255), nullable=False, unique=True, index=True, doc='type of the entity')
     entity_offsets = Column(String(255), nullable=False, unique=True, index=True, doc='text spans of the entity')
@@ -45,16 +47,19 @@ class Interaction(Base):
     """This class represents the interaction table"""
 
     __tablename__ = INTERACTION_TABLE_NAME
+
     id = Column(Integer, primary_key=True)
+
     pubmed = Column(String(32), nullable=False)
     sentence = Column(Text, doc='The sentence from which the pair is extracted')
     interaction = Column(String(20), doc='Describes the existence or absence of an interaction')
     interaction_type = Column(String(255), doc='Describes the type of the interaction')
-    e1_id = Column(Integer, ForeignKey('{}.id'.format(Entity1_TABLE_NAME)))
-    e1 = relationship('Entity1')
-    e2_id = Column(Integer, ForeignKey('{}.id'.format(Entity2_TABLE_NAME)))
-    e2 = relationship('Entity2')
 
+    e1_id = Column(Integer, ForeignKey('{}.id'.format(Entity1_TABLE_NAME)))
+    e1 = relationship(Entity1)
+
+    e2_id = Column(Integer, ForeignKey('{}.id'.format(Entity2_TABLE_NAME)))
+    e2 = relationship(Entity2)
 
     def __repr__(self):
         return '{} and {} from {}'.format(self.e1, self.e2, self.pubmed, self.interaction, self.interaction_type)
