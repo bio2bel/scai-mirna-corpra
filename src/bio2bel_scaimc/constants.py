@@ -4,7 +4,7 @@ import os
 
 from bio2bel.utils import get_connection, get_data_dir
 
-MODULE_NAME = "scai-mirna-corpora"
+MODULE_NAME = "scaimc"
 DATA_DIR = get_data_dir(MODULE_NAME)
 DEFAULT_CACHE_CONNECTION = get_connection(MODULE_NAME)
 TRAIN_DATA_URL = "https://www.scai.fraunhofer.de/content/dam/scai/de/downloads/bioinformatik/miRNA/miRNA-Train-Corpus.xml"

@@ -7,7 +7,7 @@ import re
 import setuptools
 
 PACKAGES = setuptools.find_packages(where='src')
-META_PATH = os.path.join('src', 'bio2bel_scai-mirna-corpora', '__init__.py')
+META_PATH = os.path.join('src', 'bio2bel_scaimc', '__init__.py')
 INSTALL_REQUIRES = [
     'pybel>=0.11.1',
     'click',
@@ -21,10 +21,10 @@ EXTRAS_REQUIRE = {
 }
 ENTRY_POINTS = {
     'bio2bel': [
-        'scai-mirna-corpora = bio2bel_scai-mirna-corpora',
+        'scaimc = bio2bel_scaimc',
     ],
     'console_scripts': [
-        'bio2bel_scai-mirna-corpora = bio2bel_scai-mirna-corpora.cli:main'
+        'bio2bel_scaimc = bio2bel_scaimc.cli:main'
     ]
 }
 

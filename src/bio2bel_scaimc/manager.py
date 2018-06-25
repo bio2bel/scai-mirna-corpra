@@ -19,7 +19,7 @@ class Manager(AbstractManager):
     """Manager for Bio2bel SCAI-miRNA-Corpora"""
     module_name = MODULE_NAME
     flask_admin_models = [Entity1, Entity1, Interaction]
-    
+
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
@@ -29,6 +29,9 @@ class Manager(AbstractManager):
     @property
     def _base(self):
         return Base
+
+    def is_populated(self):
+        return 0 < self.count_e1s()
 
     def get_e1_by_name(self, name):
         """Gets an miRNA from the database if it exists
