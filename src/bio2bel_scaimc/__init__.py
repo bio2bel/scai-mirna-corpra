@@ -40,7 +40,7 @@ by line.
 
 3. Get all associations to iterate and do magic
 
->>> associations = manager.get_associations()
+>>> associations = manager.list_associations()
 """
 
 from .manager import Manager

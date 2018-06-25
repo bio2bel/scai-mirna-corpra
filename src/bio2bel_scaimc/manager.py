@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import logging
+from typing import List
 
 from bio2bel import AbstractManager
 from pybel import BELGraph
@@ -18,7 +19,7 @@ log = logging.getLogger(__name__)
 class Manager(AbstractManager):
     """Manager for Bio2bel SCAI-miRNA-Corpora"""
     module_name = MODULE_NAME
-    flask_admin_models = [Entity1, Entity1, Interaction]
+    flask_admin_models = [Entity1, Entity2, Interaction]
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -137,12 +138,12 @@ class Manager(AbstractManager):
         log.info('inserting models')
         self.session.commit()
 
-    def get_associations(self):
+    def list_associations(self) -> List[Interaction]:
         """Returns all associations
 
         :rtype: list[Interaction]
         """
-        return self.session.query(Interaction).all()
+        return self._list_model(Interaction)
 
     def to_bel_graph(self):
         """Builds a BEL graph containing all of the miRNA-disease associations in the database
@@ -151,7 +152,7 @@ class Manager(AbstractManager):
         """
         graph = BELGraph()
 
-        for association in self.get_associations():
-            association.add_to_bel_graph(graph)
+        for interaction in self.list_associations():
+            interaction.add_to_bel_graph(graph)
 
         return graph
